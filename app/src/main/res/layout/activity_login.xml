@@ -32,15 +32,6 @@
         android:textColor="@android:color/background_dark"
         android:textSize="20sp" />
 
-    <Button
-        android:text="Connexion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnConn"
-        android:layout_marginBottom="142dp"
-        android:layout_above="@+id/txtSkip"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:text="Projet Python"
         android:layout_width="wrap_content"
@@ -49,38 +40,43 @@
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@android:color/background_dark"
-        android:textSize="20sp" />
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Mot de passe"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/editText" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Login"
+        android:hint="Login"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_marginBottom="113dp"
-        android:layout_above="@+id/btnConn"
-        android:layout_toStartOf="@+id/txtSkip"
-        android:layout_marginEnd="50dp" />
+        android:layout_above="@+id/editText2"
+        android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/editText" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_marginTop="33dp"
-        android:background="#242321">
-
-    </FrameLayout>
+    <Button
+        android:id="@+id/btnConn"
+        android:text="Button"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>
