@@ -73,4 +73,14 @@
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/editText" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignEnd="@+id/editText"
+        android:layout_marginTop="33dp"
+        android:background="#242321">
+
+    </FrameLayout>
+
 </RelativeLayout>
