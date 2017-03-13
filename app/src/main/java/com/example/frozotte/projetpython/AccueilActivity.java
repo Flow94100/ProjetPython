@@ -11,17 +11,33 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.frozotte.projetpython.controller.ConnectionServer;
+
 import org.w3c.dom.Text;
+
+import java.util.concurrent.ExecutionException;
 
 public class AccueilActivity extends AppCompatActivity {
 
     ImageView imgDeconn;
     TextView txtLogin;
+    String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
+
+        ConnectionServer connection = new ConnectionServer(AccueilActivity.this,"http://192.168.137.116/contents/api/villes/?format=json");
+        connection.execute();
+        try {
+            result = connection.get();
+            Log.i("result", result);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         Intent intent= getIntent();
         String result = intent.getStringExtra("result");

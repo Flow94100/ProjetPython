@@ -1,15 +1,30 @@
 package com.example.frozotte.projetpython.controller;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.annotation.DrawableRes;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.frozotte.projetpython.Ville;
+import com.example.frozotte.projetpython.AccueilActivity;
+import com.example.frozotte.projetpython.R;
+import com.example.frozotte.projetpython.métier.Ville;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +32,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by frozotte on 10/03/2017.
@@ -27,8 +44,17 @@ public class ConnectionServer extends AsyncTask<String,Void,String>{
 
     StringBuffer buffer = null;
     String url = "";
+    Activity context;
+    ArrayList<String> listPays = new ArrayList<>();
 
-    public ConnectionServer(String url){
+        static HashMap<String, Integer>paysDrapeau = new HashMap<>();
+        static{paysDrapeau.put("France", R.drawable.drapeau_france);
+        paysDrapeau.put("Angleterre", R.drawable.drapeau_angleterre);
+        paysDrapeau.put("Australie", R.drawable.drapeau_australie);}
+
+
+    public ConnectionServer(Activity context, String url){
+        this.context = context;
         this.url = url;
     }
 
@@ -54,26 +80,9 @@ public class ConnectionServer extends AsyncTask<String,Void,String>{
                 buffer.append(line);
             }
 
-            String finalJson = buffer.toString();
-
-            JSONObject parentObject = new JSONObject(finalJson);
-            JSONArray parentArray = parentObject.getJSONArray("nom");
-
-            StringBuffer finalBufferedData = new StringBuffer();
-            for (int i=0; i<parentArray.length();i++) {
-                JSONObject finalObject = parentArray.getJSONObject(i);
-                Ville ville = new Ville();
-                ville.setNom(finalObject.getString("nom"));
-                ville.setPays(finalObject.getString("pays"));
-                //finalBufferedData.append(paysName + " - " + villeName + "\n");
-            }
-            return finalBufferedData.toString();
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         } finally {
             if (connection != null) {
@@ -89,5 +98,74 @@ public class ConnectionServer extends AsyncTask<String,Void,String>{
             }
         }
         return buffer.toString();
+    }
+
+    @Override
+    protected void onPostExecute(String result){
+
+        final JSONObject parentObject = null;
+        LinearLayout layoutPays = (LinearLayout)context.findViewById(R.id.layoutFlag);
+
+        try {
+            //parentObject = new JSONObject(result);
+            final JSONArray parentArray = new JSONArray(result);
+
+            StringBuffer finalBufferedData = new StringBuffer();
+            for (int i=0; i<parentArray.length();i++) {
+                JSONObject finalObject = parentArray.getJSONObject(i);
+                final Ville ville = new Ville();
+                ville.setNom(finalObject.getString("nom"));
+                ville.setPays(finalObject.getString("pays"));
+                if (listPays.contains(ville.getPays())){
+                    continue;
+                }else{
+                    listPays.add(ville.getPays());
+                }
+                final ImageView imgPays = new ImageView(context);
+                imgPays.setImageResource(ConnectionServer.paysDrapeau.get(ville.getPays()));
+                final TextView txtPays = new TextView(context);
+                //txtPays.setText(ville.getPays());
+                //layoutPays.addView(txtPays);
+                layoutPays.addView(imgPays);
+                imgPays.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final ListView listView = new ListView(context);
+                        ArrayList<String> items = new ArrayList<String>();
+
+                        for (int j=0; j<parentArray.length();j++){
+                            try {
+                                if (ville.getPays().equals(parentArray.getJSONObject(j).getString("pays"))){
+                                    items.add(parentArray.getJSONObject(j).getString("nom"));
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                        }
+                                    });
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.list_ville_item, R.id.txtItem, items);
+                        listView.setAdapter(adapter);
+                        showDialogListView(listView);
+                    }
+                });
+                //finalBufferedData.append(paysName + " - " + villeName + "\n");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDialogListView(ListView listView){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setPositiveButton("OK", null);
+        builder.setView(listView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

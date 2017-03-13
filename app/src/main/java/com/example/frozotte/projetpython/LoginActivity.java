@@ -81,18 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         txtSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectionServer connection = new ConnectionServer("http://192.168.137.116/contents/api/villes/?format=json");
-                connection.execute();
-                try {
-                    result = connection.get();
-                    Log.i("result", result);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
                 Intent iActu = new Intent(getApplicationContext(),AccueilActivity.class);
-                iActu.putExtra("result", result);
                 startActivity(iActu);
                 finish();
             }
