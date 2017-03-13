@@ -8,20 +8,38 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class AccueilActivity extends AppCompatActivity {
 
-    TextView txtTest;
+    ImageView imgDeconn;
+    TextView txtLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
 
-        txtTest = (TextView)findViewById(R.id.txtTest);
         Intent intent= getIntent();
         String result = intent.getStringExtra("result");
+        String login = intent.getStringExtra("login");
+
+        txtLogin = (TextView)findViewById(R.id.txtTitreLog);
+        imgDeconn = (ImageView)findViewById(R.id.imgDeconn);
+
+        txtLogin.setText(login);
+
+        imgDeconn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iDeconn = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(iDeconn);
+                finish();
+            }
+        });
     }
 
     @Override

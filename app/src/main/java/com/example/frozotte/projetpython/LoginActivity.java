@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editLog;
     CheckBox checkLogin;
     String result;
+    String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +74,14 @@ public class LoginActivity extends AppCompatActivity {
         txtSkip = (TextView)findViewById(R.id.txtSkip);
         txtInscri = (TextView)findViewById(R.id.txtInscri);
         btnConnexion = (Button)findViewById(R.id.btnConn);
-        editLog = (EditText)findViewById(R.id.editText);
+        editLog = (EditText)findViewById(R.id.editLog);
         checkLogin = (CheckBox)findViewById(R.id.checkBox2);
 
         //Si pas inscri, passer au fil d'actu directement
         txtSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectionServer connection = new ConnectionServer("http://192.168.43.148:8000/contents/api/villes/?format=json");
+                ConnectionServer connection = new ConnectionServer("http://192.168.137.116/contents/api/villes/?format=json");
                 connection.execute();
                 try {
                     result = connection.get();
@@ -110,7 +111,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (editLog.getText().toString().equals("admin")){
+                    login = editLog.getText().toString();
                     Intent iActu = new Intent(getApplicationContext(),AccueilActivity.class);
+                    iActu.putExtra("login", login);
                     startActivity(iActu);
                     finish();
                 }else{

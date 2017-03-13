@@ -3,6 +3,12 @@ package com.example.frozotte.projetpython.controller;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.frozotte.projetpython.Ville;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,9 +54,26 @@ public class ConnectionServer extends AsyncTask<String,Void,String>{
                 buffer.append(line);
             }
 
+            String finalJson = buffer.toString();
+
+            JSONObject parentObject = new JSONObject(finalJson);
+            JSONArray parentArray = parentObject.getJSONArray("nom");
+
+            StringBuffer finalBufferedData = new StringBuffer();
+            for (int i=0; i<parentArray.length();i++) {
+                JSONObject finalObject = parentArray.getJSONObject(i);
+                Ville ville = new Ville();
+                ville.setNom(finalObject.getString("nom"));
+                ville.setPays(finalObject.getString("pays"));
+                //finalBufferedData.append(paysName + " - " + villeName + "\n");
+            }
+            return finalBufferedData.toString();
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         } finally {
             if (connection != null) {
