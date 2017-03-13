@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ProjetPython</string>
+    <string name="password">Password</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.example.frozotte.projetpython;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class InscriptionActivity extends AppCompatActivity {
 
@@ -20,20 +22,17 @@ public class InscriptionActivity extends AppCompatActivity {
 
         txtLog = (TextView)findViewById(R.id.txtLog);
         txtMail = (TextView)findViewById(R.id.txtMail);
-        txtMdp = (TextView)findViewById(R.id.txtMdp);
+        //txtMdp = (TextView)findViewById(R.id.mdpInscri);
         btnInscri = (Button)findViewById(R.id.btnInscri);
 
         btnInscri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtLog.getText().toString().equals("")){
-                    txtLog.setError("Champ obligatoire !");
-                }
-                if (txtMail.getText().toString().equals("")){
-                    txtMail.setError("Champ obligatoire !");
-                }
-                if (txtMdp.getText().toString().equals("")){
-                    txtMdp.setError("Champ obligatoire !");
+                if (txtLog.getText().toString().equals("") || txtMail.getText().toString().equals("") || txtMdp.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Vueillez remplir tout les champs", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent iAccueil = new Intent(getApplicationContext(), AccueilActivity.class);
+                    startActivity(iAccueil);
                 }
             }
         });
