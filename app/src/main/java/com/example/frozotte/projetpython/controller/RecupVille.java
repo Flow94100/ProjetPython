@@ -1,10 +1,7 @@
 package com.example.frozotte.projetpython.controller;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.annotation.DrawableRes;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -14,16 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.frozotte.projetpython.AccueilActivity;
 import com.example.frozotte.projetpython.R;
 import com.example.frozotte.projetpython.métier.Ville;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,13 +28,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by frozotte on 10/03/2017.
  */
 
-public class ConnectionServer extends AsyncTask<String,Void,String>{
+public class RecupVille extends AsyncTask<String,Void,String>{
 
     StringBuffer buffer = null;
     String url = "";
@@ -53,7 +46,7 @@ public class ConnectionServer extends AsyncTask<String,Void,String>{
         paysDrapeau.put("Australie", R.drawable.drapeau_australie);}
 
 
-    public ConnectionServer(Activity context, String url){
+    public RecupVille(Activity context, String url){
         this.context = context;
         this.url = url;
     }
@@ -122,7 +115,9 @@ public class ConnectionServer extends AsyncTask<String,Void,String>{
                     listPays.add(ville.getPays());
                 }
                 final ImageView imgPays = new ImageView(context);
-                imgPays.setImageResource(ConnectionServer.paysDrapeau.get(ville.getPays()));
+                imgPays.setMaxHeight(50);
+                imgPays.setMaxWidth(50);
+                imgPays.setImageResource(RecupVille.paysDrapeau.get(ville.getPays()));
                 final TextView txtPays = new TextView(context);
                 //txtPays.setText(ville.getPays());
                 //layoutPays.addView(txtPays);
