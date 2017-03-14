@@ -24,62 +24,47 @@
             android:id="@+id/layoutFlag">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/drapeau_france"/>
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/drapeau_angleterre"/>
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/drapeau_australie"/>
-
-            <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_belgique"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_jamaica"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_comore"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_inde"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_guine"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_us"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_mali"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_portugal"/>
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drapeau_spain"/>
 

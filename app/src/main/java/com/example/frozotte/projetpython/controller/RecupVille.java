@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.frozotte.projetpython.R;
+import com.example.frozotte.projetpython.métier.Activite;
 import com.example.frozotte.projetpython.métier.Ville;
 
 import org.json.JSONArray;
@@ -28,6 +30,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by frozotte on 10/03/2017.
@@ -39,6 +42,7 @@ public class RecupVille extends AsyncTask<String,Void,String>{
     String url = "";
     Activity context;
     ArrayList<String> listPays = new ArrayList<>();
+    AlertDialog dialog;
 
         static HashMap<String, Integer>paysDrapeau = new HashMap<>();
         static{paysDrapeau.put("France", R.drawable.drapeau_france);
@@ -94,7 +98,7 @@ public class RecupVille extends AsyncTask<String,Void,String>{
     }
 
     @Override
-    protected void onPostExecute(String result){
+    protected void onPostExecute(final String result){
 
         final JSONObject parentObject = null;
         LinearLayout layoutPays = (LinearLayout)context.findViewById(R.id.layoutFlag);
@@ -105,7 +109,7 @@ public class RecupVille extends AsyncTask<String,Void,String>{
 
             StringBuffer finalBufferedData = new StringBuffer();
             for (int i=0; i<parentArray.length();i++) {
-                JSONObject finalObject = parentArray.getJSONObject(i);
+                final JSONObject finalObject = parentArray.getJSONObject(i);
                 final Ville ville = new Ville();
                 ville.setNom(finalObject.getString("nom"));
                 ville.setPays(finalObject.getString("pays"));
@@ -115,13 +119,9 @@ public class RecupVille extends AsyncTask<String,Void,String>{
                     listPays.add(ville.getPays());
                 }
                 final ImageView imgPays = new ImageView(context);
-                imgPays.setMaxHeight(50);
-                imgPays.setMaxWidth(50);
                 imgPays.setImageResource(RecupVille.paysDrapeau.get(ville.getPays()));
                 final TextView txtPays = new TextView(context);
-                //txtPays.setText(ville.getPays());
-                //layoutPays.addView(txtPays);
-                layoutPays.addView(imgPays);
+                layoutPays.addView(imgPays, 0);
                 imgPays.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -135,7 +135,9 @@ public class RecupVille extends AsyncTask<String,Void,String>{
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                                            RecupActivite recupActivite = new RecupActivite(context, "http://192.168.137.116/contents/api/activitebyville/" + listView.getItemAtPosition(position).toString());
+                                            recupActivite.execute();
+                                            dialog.dismiss();
                                         }
                                     });
                                 }
@@ -158,9 +160,8 @@ public class RecupVille extends AsyncTask<String,Void,String>{
     public void showDialogListView(ListView listView){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
-        builder.setPositiveButton("OK", null);
         builder.setView(listView);
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.show();
     }
 }
