@@ -43,7 +43,7 @@ public class InscriptionActivity extends AppCompatActivity {
                     String url = "http://192.168.137.116/contents/api/inscription";
 
                     InsriptionController insriptionController = new InsriptionController();
-                    insriptionController.execute();
+                    insriptionController.execute(url,user,pwd,mail);
 
                     Intent iAccueil = new Intent(getApplicationContext(), AccueilActivity.class);
                     startActivity(iAccueil);
