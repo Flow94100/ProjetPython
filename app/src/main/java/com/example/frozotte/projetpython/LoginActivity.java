@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         txtSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectionServer connection = new ConnectionServer("http://192.168.43.148:8000/contents/api/villes/?format=json");
+                ConnectionServer connection = new ConnectionServer("http://192.168.137.116/contents/api/villes/?format=json");
                 connection.execute();
                 try {
                     result = connection.get();
