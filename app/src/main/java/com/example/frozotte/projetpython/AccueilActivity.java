@@ -7,21 +7,58 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.frozotte.projetpython.controller.RecupActivite;
+import com.example.frozotte.projetpython.controller.RecupVille;
+
+import java.util.concurrent.ExecutionException;
 
 public class AccueilActivity extends AppCompatActivity {
 
-    TextView txtTest;
+    ImageView imgDeconn;
+    TextView txtLogin;
+    String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
 
-        txtTest = (TextView)findViewById(R.id.txtTest);
+        /*RecupVille recupVille = new RecupVille(AccueilActivity.this,"http://192.168.137.116/contents/api/villes/?format=json");
+        recupVille.execute();*/
+
+        RecupActivite recupActivite = new RecupActivite(AccueilActivity.this, "http://192.168.137.116/contents/api/activitebyville/Paris");
+        recupActivite.execute();
+
+        try {
+            //result = recupVille.get();
+            result = recupActivite.get();
+            Log.i("result", result);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         Intent intent= getIntent();
         String result = intent.getStringExtra("result");
+        String login = intent.getStringExtra("login");
+
+        txtLogin = (TextView)findViewById(R.id.txtTitreLog);
+        imgDeconn = (ImageView)findViewById(R.id.imgDeconn);
+
+        txtLogin.setText(login);
+
+        imgDeconn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iDeconn = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(iDeconn);
+                finish();
+            }
+        });
     }
 
     @Override

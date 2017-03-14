@@ -1,37 +1,14 @@
 package com.example.frozotte.projetpython;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.frozotte.projetpython.controller.ConnectionServer;
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -42,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editLog;
     CheckBox checkLogin;
     String result;
+    String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +51,14 @@ public class LoginActivity extends AppCompatActivity {
         txtSkip = (TextView)findViewById(R.id.txtSkip);
         txtInscri = (TextView)findViewById(R.id.txtInscri);
         btnConnexion = (Button)findViewById(R.id.btnConn);
-        editLog = (EditText)findViewById(R.id.editText);
+        editLog = (EditText)findViewById(R.id.editLog);
         checkLogin = (CheckBox)findViewById(R.id.checkBox2);
 
         //Si pas inscri, passer au fil d'actu directement
         txtSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectionServer connection = new ConnectionServer("http://192.168.137.116/contents/api/villes/?format=json");
-                connection.execute();
-                try {
-                    result = connection.get();
-                    Log.i("result", result);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
                 Intent iActu = new Intent(getApplicationContext(),AccueilActivity.class);
-                iActu.putExtra("result", result);
                 startActivity(iActu);
                 finish();
             }
@@ -110,7 +77,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (editLog.getText().toString().equals("admin")){
+                    login = editLog.getText().toString();
                     Intent iActu = new Intent(getApplicationContext(),AccueilActivity.class);
+                    iActu.putExtra("login", login);
                     startActivity(iActu);
                     finish();
                 }else{
