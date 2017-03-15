@@ -1,6 +1,7 @@
 package com.example.frozotte.projetpython;
 
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.frozotte.projetpython.controller.ConnexionController;
+import com.example.frozotte.projetpython.controller.InsriptionController;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -20,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox checkLogin;
     String result;
     String login;
+    TextInputLayout password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +53,13 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
+        password = (TextInputLayout)findViewById(R.id.password);
         txtSkip = (TextView)findViewById(R.id.txtSkip);
         txtInscri = (TextView)findViewById(R.id.txtInscri);
         btnConnexion = (Button)findViewById(R.id.btnConn);
         editLog = (EditText)findViewById(R.id.editLog);
         checkLogin = (CheckBox)findViewById(R.id.checkBox2);
+
 
         //Si pas inscri, passer au fil d'actu directement
         txtSkip.setOnClickListener(new View.OnClickListener() {
@@ -76,15 +83,14 @@ public class LoginActivity extends AppCompatActivity {
         btnConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editLog.getText().toString().equals("admin")){
                     login = editLog.getText().toString();
-                    Intent iActu = new Intent(getApplicationContext(),AccueilActivity.class);
-                    iActu.putExtra("login", login);
-                    startActivity(iActu);
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Utilisateur inconnu", Toast.LENGTH_LONG).show();
-                }
+
+                    String user = editLog.getText().toString();
+                    String pwd = password.getEditText().getText().toString();
+                    String url = "http://192.168.137.116/contents/api/connexion";
+
+                    ConnexionController connexionController = new ConnexionController(LoginActivity.this);
+                    connexionController.execute(url,user,pwd);
             }
         });
     }
