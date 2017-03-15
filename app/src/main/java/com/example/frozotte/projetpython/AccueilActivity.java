@@ -26,21 +26,18 @@ public class AccueilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
 
-        RecupVille recupVille = new RecupVille(AccueilActivity.this,"http://192.168.137.116/contents/api/villes/?format=json");
+        RecupVille recupVille = new RecupVille(AccueilActivity.this, "http://192.168.137.116/contents/api/villes/?format=json");
         recupVille.execute();
-        try {
-            result = recupVille.get();
-            //result = recupActivite.get();
-            Log.i("result", result);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+
+        RecupActivite recupActivite= new RecupActivite(AccueilActivity.this, "http://192.168.137.116/contents/api/activites/?format=json");
+        recupActivite.execute();
 
         Intent intent= getIntent();
         String result = intent.getStringExtra("result");
         String login = intent.getStringExtra("login");
+        if(login.isEmpty()){
+
+        }
 
         txtLogin = (TextView)findViewById(R.id.txtTitreLog);
         imgDeconn = (ImageView)findViewById(R.id.imgDeconn);
