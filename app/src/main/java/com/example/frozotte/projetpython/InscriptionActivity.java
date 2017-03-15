@@ -46,6 +46,7 @@ public class InscriptionActivity extends AppCompatActivity {
                     insriptionController.execute(url,user,pwd,mail);
 
                     Intent iAccueil = new Intent(getApplicationContext(), AccueilActivity.class);
+                    iAccueil.putExtra("user", user);
                     startActivity(iAccueil);
                 }
             }

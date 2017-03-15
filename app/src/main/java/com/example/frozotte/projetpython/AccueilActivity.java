@@ -30,8 +30,6 @@ public class AccueilActivity extends AppCompatActivity {
         recupVille.execute();
         try {
             result = recupVille.get();
-            //result = recupActivite.get();
-            Log.i("result", result);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -41,6 +39,7 @@ public class AccueilActivity extends AppCompatActivity {
         Intent intent= getIntent();
         String result = intent.getStringExtra("result");
         String login = intent.getStringExtra("login");
+        String login2 = intent.getStringExtra("user");
 
         txtLogin = (TextView)findViewById(R.id.txtTitreLog);
         imgDeconn = (ImageView)findViewById(R.id.imgDeconn);
