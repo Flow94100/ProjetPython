@@ -48,7 +48,9 @@ public class RecupActivite extends AsyncTask<String,Void,String>{
             imgAct.put("Big Ben", R.drawable.big_ben);
             imgAct.put("London Eye", R.drawable.london_eyes);
             imgAct.put("Opéra House", R.drawable.opera);
-            imgAct.put("Harbour Bridge", R.drawable.harbour_bridge);}
+            imgAct.put("Harbour Bridge", R.drawable.harbour_bridge);
+            imgAct.put("Arc de Triomphe", R.drawable.arc_de_triomphe);
+            imgAct.put("Montmartre", R.drawable.montmartre);}
 
 
     public RecupActivite(Activity context, String url){
