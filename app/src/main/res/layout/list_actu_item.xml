@@ -13,7 +13,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtActu"
+        android:id="@+id/txtActuNom"
         android:text="Description"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtActuDescr"
+        android:layout_weight="1" />
 
 </LinearLayout>

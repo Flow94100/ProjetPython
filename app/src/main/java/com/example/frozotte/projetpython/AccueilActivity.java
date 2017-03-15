@@ -26,15 +26,11 @@ public class AccueilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
 
-        /*RecupVille recupVille = new RecupVille(AccueilActivity.this,"http://192.168.137.116/contents/api/villes/?format=json");
-        recupVille.execute();*/
-
-        RecupActivite recupActivite = new RecupActivite(AccueilActivity.this, "http://192.168.137.116/contents/api/activitebyville/Paris");
-        recupActivite.execute();
-
+        RecupVille recupVille = new RecupVille(AccueilActivity.this,"http://192.168.137.116/contents/api/villes/?format=json");
+        recupVille.execute();
         try {
-            //result = recupVille.get();
-            result = recupActivite.get();
+            result = recupVille.get();
+            //result = recupActivite.get();
             Log.i("result", result);
         } catch (InterruptedException e) {
             e.printStackTrace();
