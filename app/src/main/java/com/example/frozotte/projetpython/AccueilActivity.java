@@ -26,10 +26,10 @@ public class AccueilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
 
-        RecupVille recupVille = new RecupVille(AccueilActivity.this,"http://192.168.137.116/contents/api/villes/?format=json");
+        RecupVille recupVille = new RecupVille(AccueilActivity.this,"http://"+LoginActivity.ip+"/contents/api/villes/?format=json");
         recupVille.execute();
 
-        RecupActivite recupActivite= new RecupActivite(AccueilActivity.this, "http://192.168.137.116/contents/api/activites/?format=json");
+        RecupActivite recupActivite= new RecupActivite(AccueilActivity.this, "http://"+LoginActivity.ip+"/contents/api/activites/?format=json");
         recupActivite.execute();
 
         Intent intent= getIntent();

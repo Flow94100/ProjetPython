@@ -3,6 +3,8 @@ package com.example.frozotte.projetpython.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.speech.tts.Voice;
+import android.transition.SidePropagation;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,27 +27,25 @@ import java.net.URL;
 import java.util.HashMap;
 
 /**
- * Created by Ismael on 13/03/2017.
+ * Created by Abraham_PC on 16/03/2017.
  */
 
-public class InsriptionController extends AsyncTask<String, Void, String> {
+public class CommentController extends AsyncTask<String, Void, String> {
+
 
     private Activity context;
 
-    public InsriptionController(Activity context){
-        this.context = context;
+    public CommentController(Activity activity){
+        context = activity;
     }
 
     @Override
     protected String doInBackground(String... params) {
-
         String urlstring = params[0];
-        String user = params[1];
-        String pwd = params[2];
-        String mail = params[3];
-        String statut = "user";
-
-        //urlstring+= "/"+user+"/"+pwd+"/"+mail+"/"+statut;
+        String commentaire = params[1];
+        String note = params[2] ;
+        String id_activite = params[3];
+        String id_user = params[4];
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -53,10 +53,10 @@ public class InsriptionController extends AsyncTask<String, Void, String> {
         StringBuffer buffer = null;
         try {
             HashMap<String, String> postData = new HashMap<>();
-            postData.put("user", user);
-            postData.put("pwd", pwd);
-            postData.put("mail", mail);
-            postData.put("status", statut);
+            postData.put("id_user", id_user);
+            postData.put("id_activite", id_activite);
+            postData.put("note", note);
+            postData.put("cmt", commentaire);
 
             URL url = new URL(urlstring);
             connection = (HttpURLConnection) url.openConnection();
@@ -79,7 +79,7 @@ public class InsriptionController extends AsyncTask<String, Void, String> {
             buffer = new StringBuffer();
 
             String line = "";
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 Log.i("result", line);
                 buffer.append(line);
             }
@@ -102,7 +102,6 @@ public class InsriptionController extends AsyncTask<String, Void, String> {
             }
         }
         return buffer.toString();
-
     }
 
     @Override
@@ -113,12 +112,12 @@ public class InsriptionController extends AsyncTask<String, Void, String> {
             jsonObject = new JSONObject(result);
             String error = jsonObject.getString("error");
             if(error.trim().equals("no_error")){
-                Toast.makeText(context, "Vous êtes maintenant inscrit", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Votre note et commentaire ont bien été pris en compte", Toast.LENGTH_LONG).show();
                 Intent iAccueil = new Intent(context, AccueilActivity.class);
                 //iAccueil.putExtra("user", user);
                 context.startActivity(iAccueil);
             }else
-                Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Vous avez déjà commenté ce post", Toast.LENGTH_SHORT).show();
 
 
         } catch (JSONException e) {
@@ -126,8 +125,5 @@ public class InsriptionController extends AsyncTask<String, Void, String> {
             Toast.makeText(context, "Erreur", Toast.LENGTH_SHORT).show();
 
         }
-
-
-
     }
 }

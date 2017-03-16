@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.frozotte.projetpython.LoginActivity;
 import com.example.frozotte.projetpython.R;
 import com.example.frozotte.projetpython.métier.Activite;
 import com.example.frozotte.projetpython.métier.Ville;
@@ -135,7 +136,7 @@ public class RecupVille extends AsyncTask<String,Void,String>{
                                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            RecupActivite recupActivite = new RecupActivite(context, "http://192.168.137.116/contents/api/activitebyville/" + listView.getItemAtPosition(position).toString());
+                                            RecupActivite recupActivite = new RecupActivite(context, "http://"+ LoginActivity.ip+"/contents/api/activitebyville/" + listView.getItemAtPosition(position).toString());
                                             recupActivite.execute();
                                             dialog.dismiss();
                                         }

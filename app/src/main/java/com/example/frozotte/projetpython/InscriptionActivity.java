@@ -34,20 +34,18 @@ public class InscriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (txtLog.getText().toString().equals("") || txtMail.getText().toString().equals("") || txtMdp.getEditText().getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(),"Vueillez remplir tout les champs", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Veuillez remplir tout les champs", Toast.LENGTH_SHORT).show();
                 }else{
 
                     String user = txtLog.getText().toString();
                     String mail = txtMail.getText().toString();
                     String pwd = txtMdp.getEditText().getText().toString();
-                    String url = "http://192.168.137.116/contents/api/inscription";
+                    String url = "http://"+LoginActivity.ip+"/contents/api/inscription/";
 
-                    InsriptionController insriptionController = new InsriptionController();
+                    InsriptionController insriptionController = new InsriptionController(InscriptionActivity.this);
                     insriptionController.execute(url,user,pwd,mail);
 
-                    Intent iAccueil = new Intent(getApplicationContext(), AccueilActivity.class);
-                    iAccueil.putExtra("user", user);
-                    startActivity(iAccueil);
+
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.example.frozotte.projetpython;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     String result;
     String login;
     TextInputLayout password;
+
+    public static String ip = "172.16.14.116";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     String user = editLog.getText().toString();
                     String pwd = password.getEditText().getText().toString();
-                    String url = "http://192.168.137.116/contents/api/connexion";
+                    String url = "http://"+LoginActivity.ip+"/contents/api/connexion/";
 
                     ConnexionController connexionController = new ConnexionController(LoginActivity.this);
                     connexionController.execute(url,user,pwd);

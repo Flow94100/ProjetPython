@@ -6,6 +6,7 @@ package com.example.frozotte.projetpython.métier;
 
 public class Activite {
 
+    private int id;
     private String nom;
     private String description;
     private String img;
@@ -42,5 +43,13 @@ public class Activite {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getId() {
+        return this.id ;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
