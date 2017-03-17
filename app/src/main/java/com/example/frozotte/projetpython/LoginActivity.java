@@ -1,6 +1,8 @@
 package com.example.frozotte.projetpython;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     String result;
     String login;
     TextInputLayout password;
-    //public static String ip = "192.168.137.116";
-    public static String ip = "192.168.1.64";
+    public static String ip = "192.168.137.116";
+    //public static String ip = "192.168.1.64";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,13 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
+        SharedPreferences sharedPrefs = getSharedPreferences("my_preference", Context.MODE_PRIVATE);
+        int id_user = sharedPrefs.getInt("id_user", 0);
+        if(id_user != 0){
+            Intent it = new Intent(this, AccueilActivity.class);
+            startActivity(it);
+            finish();
+        }
         password = (TextInputLayout)findViewById(R.id.password);
         txtSkip = (TextView)findViewById(R.id.txtSkip);
         txtInscri = (TextView)findViewById(R.id.txtInscri);
@@ -63,6 +72,13 @@ public class LoginActivity extends AppCompatActivity {
         editLog = (EditText)findViewById(R.id.editLog);
         checkLogin = (CheckBox)findViewById(R.id.checkBox2);
 
+
+        findViewById(R.id.textView6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set ip // TODO: 17/03/2017  
+            }
+        });
 
         //Si pas inscri, passer au fil d'actu directement
         txtSkip.setOnClickListener(new View.OnClickListener() {

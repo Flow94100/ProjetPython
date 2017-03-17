@@ -1,7 +1,9 @@
 package com.example.frozotte.projetpython;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +46,8 @@ public class AccueilActivity extends AppCompatActivity {
         imgDeconn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPrefs = getSharedPreferences("my_preference", Context.MODE_PRIVATE);
+                sharedPrefs.edit().putInt("id_user", 0).commit();
                 Intent iDeconn = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(iDeconn);
                 finish();
