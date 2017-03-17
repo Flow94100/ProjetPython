@@ -3,6 +3,7 @@ package com.example.frozotte.projetpython.controller;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.frozotte.projetpython.CommentaireActivity;
 import com.example.frozotte.projetpython.LoginActivity;
 import com.example.frozotte.projetpython.R;
 import com.example.frozotte.projetpython.métier.Activite;
@@ -134,6 +136,20 @@ public class RecupActivite extends AsyncTask<String,Void,String>{
 
                     CustomAdapter adapter = new CustomAdapter(listActivite);
                     listView.setAdapter(adapter);
+                    //clic
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Activite activite = listActivite.get(position);
+
+                            Intent intent = new Intent(context, CommentaireActivity.class);
+                            intent.putExtra("activite", activite.getNom());
+                            context.startActivity(intent);
+
+                        }
+                    });
+
+                    // long clic
                     listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         @Override
                         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

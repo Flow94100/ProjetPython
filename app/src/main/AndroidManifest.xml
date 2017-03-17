@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.frozotte.projetpython">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".InscriptionActivity" />
-        <activity android:name=".AccueilActivity"></activity>
+        <activity android:name=".AccueilActivity" />
+        <activity android:name=".CommentaireActivity"></activity>
     </application>
 
 </manifest>

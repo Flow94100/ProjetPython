@@ -26,8 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     String result;
     String login;
     TextInputLayout password;
-
-    public static String ip = "172.16.14.116";
+    //public static String ip = "192.168.137.116";
+    public static String ip = "192.168.1.64";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
